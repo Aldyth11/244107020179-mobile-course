@@ -1,5 +1,9 @@
 # Week 2: Declarative UI & Responsive Design
 
+**Nama:** M. Aldyth Rafiansyah Fauzi  
+**NIM:** 244107020179  
+**Kelas:** TI - 3G
+
 ## Tujuan
 1. Memahami konsep UI deklaratif dan hubungan antara widget tree, state, serta tampilan aplikasi.
 2. Menerapkan layout dasar Flutter menggunakan `Container`, `Row`, `Column`, `Expanded`, dan `Card`.

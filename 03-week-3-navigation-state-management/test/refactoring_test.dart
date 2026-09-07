@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart'; // Tambahan wajib yang tidak ada di modul
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:week_3_navigation_state_management/main.dart'; 
+import 'package:week_3_navigation_state_management/Praktikum2/main.dart'; 
 
 void main() {
   testWidgets('menambah tugas baru', (tester) async {

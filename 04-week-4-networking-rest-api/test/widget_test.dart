@@ -1,30 +1,37 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:week_4_networking_rest_api/Praktikum1-3/data/models/post.dart';
+import 'package:week_4_networking_rest_api/Praktikum1-3/data/providers.dart';
+import 'package:week_4_networking_rest_api/Praktikum1-3/data/repositories/post_repository.dart';
+import 'package:week_4_networking_rest_api/Praktikum1-3/main.dart';
 
-import 'package:week_4_networking_rest_api/main.dart';
+// Fake PostRepository agar widget test tidak melakukan HTTP request sungguhan
+class FakePostRepository extends PostRepository {
+  FakePostRepository() : super(Dio());
+
+  @override
+  Future<List<Post>> fetchPosts() async => [];
+
+  @override
+  Future<List<Post>> fetchPostsPage({required int page, int limit = 10}) async => [];
+}
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('App renders correctly with ProviderScope', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          postRepositoryProvider.overrideWithValue(FakePostRepository()),
+        ],
+        child: const MyApp(),
+      ),
+    );
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
     await tester.pump();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Pastikan MaterialApp berhasil di-render
+    expect(find.byType(MaterialApp), findsOneWidget);
   });
 }

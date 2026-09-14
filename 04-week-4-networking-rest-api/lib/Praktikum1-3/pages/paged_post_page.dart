@@ -1,26 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../data/paged_posts.dart';
-import '../data/providers.dart';
+import '../data/network_errors.dart';
+import '../widgets/post_tile.dart';
+
 
 class PagedPostPage extends ConsumerStatefulWidget {
   const PagedPostPage({super.key});
 
   @override
-  ConsumerState<PagedPostPage> createState() =>
-      _PagedPostPageState();
+  ConsumerState<PagedPostPage> createState() => _PagedPostPageState();
 }
 
-class _PagedPostPageState
-    extends ConsumerState<PagedPostPage> {
+class _PagedPostPageState extends ConsumerState<PagedPostPage> {
   final _controller = ScrollController();
 
   @override
   void initState() {
     super.initState();
     _controller.addListener(() {
-      if (_controller.position.pixels >=
-          _controller.position.maxScrollExtent - 200) {
+      if (_controller.hasClients &&
+          _controller.position.pixels >=
+              _controller.position.maxScrollExtent - 50) {
         ref.read(pagedPostsProvider.notifier).loadNextPage();
       }
     });
@@ -35,6 +37,7 @@ class _PagedPostPageState
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(pagedPostsProvider);
+
     if (state.error != null && state.items.isEmpty) {
       return Scaffold(
         appBar: AppBar(title: const Text('Posts Paged')),
@@ -42,7 +45,7 @@ class _PagedPostPageState
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(friendlyErrorMessage(state.error!)),
+              Text(friendlyErrorMessage(state.error)),
               const SizedBox(height: 12),
               FilledButton(
                 onPressed: () => ref
@@ -55,18 +58,24 @@ class _PagedPostPageState
         ),
       );
     }
+
     return Scaffold(
       appBar: AppBar(title: const Text('Posts Paged')),
       body: ListView.builder(
         controller: _controller,
-        itemCount: state.items.length + 1,
+        itemCount: state.items.length + (state.hasMore ? 1 : 0),
         itemBuilder: (context, index) {
           if (index == state.items.length) {
+            if (state.error != null) {
+              return const Padding(
+                padding: EdgeInsets.all(16),
+                child: Center(child: Text('Gagal memuat halaman berikutnya.')),
+              );
+            }
             if (!state.hasMore) {
               return const Padding(
                 padding: EdgeInsets.all(16),
-                child:
-                    Center(child: Text('Semua data termuat.')),
+                child: Center(child: Text('Semua data termuat.')),
               );
             }
             return const Padding(
@@ -74,12 +83,14 @@ class _PagedPostPageState
               child: Center(child: CircularProgressIndicator()),
             );
           }
+
           final post = state.items[index];
-          return ListTile(
-            leading: CircleAvatar(
-                child: Text(post.id.toString())),
-            title: Text(post.title,
-                maxLines: 1, overflow: TextOverflow.ellipsis),
+          // Menggunakan PostTile yang sudah diekstrak dan navigasi GoRouter /post/:id
+          return PostTile(
+            post: post,
+            onTap: () {
+              context.go('/post/${post.id}', extra: post);
+            },
           );
         },
       ),

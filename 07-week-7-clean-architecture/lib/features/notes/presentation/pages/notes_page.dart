@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../providers/notes_providers.dart';
 
 class NotesPage extends ConsumerWidget {
@@ -10,9 +11,7 @@ class NotesPage extends ConsumerWidget {
     final notesState = ref.watch(notesListNotifierProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Catatan Clean Architecture'),
-      ),
+      appBar: AppBar(title: const Text('Catatan Clean Architecture')),
       body: notesState.when(
         data: (notes) {
           if (notes.isEmpty) {

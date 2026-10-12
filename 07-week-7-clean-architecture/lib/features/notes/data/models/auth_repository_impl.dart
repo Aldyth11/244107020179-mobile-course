@@ -6,7 +6,10 @@ import '../models/user_model.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   @override
-  Future<({User? user, Failure? failure})> login(String email, String password) async {
+  Future<({User? user, Failure? failure})> login(
+    String email,
+    String password,
+  ) async {
     try {
       // Simulasi request API / Dio
       if (email == 'admin@polinema.ac.id' && password == '123456') {
@@ -17,9 +20,15 @@ class AuthRepositoryImpl implements AuthRepository {
         });
         return (user: model.toEntity(), failure: null);
       }
-      return (user: null, failure: const NetworkFailure('Email atau password salah'));
+      return (
+        user: null,
+        failure: const NetworkFailure('Email atau password salah'),
+      );
     } catch (e) {
-      return (user: null, failure: NetworkFailure('Gagal terhubung ke server: $e'));
+      return (
+        user: null,
+        failure: NetworkFailure('Gagal terhubung ke server: $e'),
+      );
     }
   }
 }

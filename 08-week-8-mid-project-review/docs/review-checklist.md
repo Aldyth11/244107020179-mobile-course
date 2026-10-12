@@ -13,3 +13,11 @@
 - [x] Code Formatting (`dart format`): Formatted & pass.
 - [x] Automated Testing (`flutter test`): Pass (All tests passed).
 - [x] Continuous Integration: Menambahkan GitHub Actions `.github/workflows/ci.yml`.
+
+## Checklist Verifikasi Mandiri (Mid-Project Review)
+
+- [x] **Branching & Issue:** Branch dibuat dari `develop`, PR dibuat kecil (satu fitur/refactor), dan issue ditutup otomatis via PR.
+- [x] **Peer Review Process:** Minimal 3 komentar review bermakna dari reviewer sejawat telah ditindaklanjuti hingga mendapat `Approve`.
+- [x] **Automated Checks:** Perintah `flutter analyze` bersih (0 issues), `dart format` rapi, dan `flutter test` hijau (semua test pass).
+- [x] **AI Challenge Documentation:** Tabel perbandingan usulan AI vs keputusan final telah terdokumentasi lengkap di `docs/AI_Challenge.md`.
+- [x] **Continuous Integration:** Automated CI workflow (`.github/workflows/ci.yml`) siap menolak PR kotor secara otomatis.

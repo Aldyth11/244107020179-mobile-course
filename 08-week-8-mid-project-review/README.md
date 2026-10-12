@@ -27,11 +27,11 @@ Peer review dilakukan dengan checklist agar reviewer tidak hanya memberikan pers
 
 Audit riwayat commit Minggu 5-7 menunjukkan bahwa beberapa commit masih menggunakan judul yang terlalu umum, seperti `Menyelesaikan Week 6` dan `Menyelesaikan Jobsheet 7`. Judul tersebut diperjelas menggunakan Conventional Commits agar tujuan perubahan lebih mudah dipahami.
 
-| Commit Lama | Commit Baru | Alasan Perubahan |
-| :--- | :--- | :--- |
-| `Week 5 Local Storage dan Offline-First` | `feat(storage): tambah fitur penyimpanan lokal dan offline-first` | Menjelaskan penambahan fitur penyimpanan lokal dengan tipe dan scope yang jelas. |
-| `Menyelesaikan Week 6` | `feat(auth): tambah autentikasi dan integrasi fcm week 6` | Menjelaskan fitur autentikasi dan integrasi FCM yang dikerjakan. |
-| `Menyelesaikan Jobsheet 7` | `feat(architecture): implementasi clean architecture pada aplikasi week 7` | Menjelaskan perubahan arsitektur yang dilakukan. |
+| Commit Lama                              | Commit Baru                                                                | Alasan Perubahan                                                                 |
+| :--------------------------------------- | :------------------------------------------------------------------------- | :------------------------------------------------------------------------------- |
+| `Week 5 Local Storage dan Offline-First` | `feat(storage): tambah fitur penyimpanan lokal dan offline-first`          | Menjelaskan penambahan fitur penyimpanan lokal dengan tipe dan scope yang jelas. |
+| `Menyelesaikan Week 6`                   | `feat(auth): tambah autentikasi dan integrasi fcm week 6`                  | Menjelaskan fitur autentikasi dan integrasi FCM yang dikerjakan.                 |
+| `Menyelesaikan Jobsheet 7`               | `feat(architecture): implementasi clean architecture pada aplikasi week 7` | Menjelaskan perubahan arsitektur yang dilakukan.                                 |
 
 Branch untuk perubahan dibuat dari `develop`. Pull Request dijaga tetap kecil dan fokus pada satu fitur atau refactor, serta issue ditutup otomatis melalui PR.
 
@@ -66,13 +66,13 @@ Ketiga komentar tersebut menunjukkan bahwa review tidak hanya memeriksa apakah a
 
 Tidak semua saran AI langsung diterapkan. Setiap temuan dibandingkan dengan kode, hasil test, dan prinsip Clean Architecture.
 
-| Temuan AI | Level | Keputusan | Alasan |
-| :--- | :--- | :--- | :--- |
-| Error handling pada repository belum mengembalikan `Failure` | Blocker | Diterima | Terbukti melalui test simulasi kegagalan database. |
-| Resource async pada provider berpotensi tidak dibersihkan | Saran | Diterima | `ref.onDispose()` digunakan untuk membersihkan subscription. |
-| Mengimpor Dio atau SQLite langsung ke layer domain | Blocker | Ditolak | Melanggar Dependency Rule Clean Architecture. |
-| Use case belum menguji skenario error atau empty list | Blocker | Diterima | Coverage sebelumnya hanya mencakup happy path. |
-| Mengubah gaya penamaan variabel lokal | Saran | Ditolak | Tidak memberi dampak fungsional dan sudah ditangani formatter/linter. |
+| Temuan AI                                                    | Level   | Keputusan | Alasan                                                                |
+| :----------------------------------------------------------- | :------ | :-------- | :-------------------------------------------------------------------- |
+| Error handling pada repository belum mengembalikan `Failure` | Blocker | Diterima  | Terbukti melalui test simulasi kegagalan database.                    |
+| Resource async pada provider berpotensi tidak dibersihkan    | Saran   | Diterima  | `ref.onDispose()` digunakan untuk membersihkan subscription.          |
+| Mengimpor Dio atau SQLite langsung ke layer domain           | Blocker | Ditolak   | Melanggar Dependency Rule Clean Architecture.                         |
+| Use case belum menguji skenario error atau empty list        | Blocker | Diterima  | Coverage sebelumnya hanya mencakup happy path.                        |
+| Mengubah gaya penamaan variabel lokal                        | Saran   | Ditolak   | Tidak memberi dampak fungsional dan sudah ditangani formatter/linter. |
 
 ## Dokumentasi Screenshot
 
@@ -91,13 +91,13 @@ Dokumentasi lebih rinci mengenai checklist, peer review, dan verifikasi AI terse
 ## Refleksi
 
 1. **Apa beda LGTM buta dengan approve yang bertanggung jawab? Apa risikonya bagi tim?**  
-	LGTM buta hanya menyetujui perubahan tanpa memeriksa kode, test, dan dampaknya. Approve yang bertanggung jawab diberikan setelah reviewer memahami perubahan dan memastikan checklist terpenuhi. LGTM buta dapat meloloskan bug, celah keamanan, atau pelanggaran arsitektur ke branch bersama.
+   LGTM buta hanya menyetujui perubahan tanpa memeriksa kode, test, dan dampaknya. Approve yang bertanggung jawab diberikan setelah reviewer memahami perubahan dan memastikan checklist terpenuhi. LGTM buta dapat meloloskan bug, celah keamanan, atau pelanggaran arsitektur ke branch bersama.
 
-2. **Kapan komentar wajib berstatus *request changes*, dan kapan cukup saran?**  
-	`Request changes` digunakan untuk masalah yang dapat menyebabkan bug, crash, kegagalan test, celah keamanan, atau pelanggaran aturan arsitektur yang penting. Komentar cukup menjadi saran jika hanya menyangkut keterbacaan, alternatif implementasi, atau penyempurnaan yang tidak menghalangi perubahan untuk digabungkan.
+2. **Kapan komentar wajib berstatus _request changes_, dan kapan cukup saran?**  
+   `Request changes` digunakan untuk masalah yang dapat menyebabkan bug, crash, kegagalan test, celah keamanan, atau pelanggaran aturan arsitektur yang penting. Komentar cukup menjadi saran jika hanya menyangkut keterbacaan, alternatif implementasi, atau penyempurnaan yang tidak menghalangi perubahan untuk digabungkan.
 
 3. **Bagian mana dari review AI yang saya tolak atau sederhanakan, dan mengapa?**  
-	Saya menolak saran untuk mengimpor Dio atau SQLite langsung ke layer domain karena melanggar Dependency Rule Clean Architecture. Saya juga menolak saran perubahan gaya penamaan variabel karena tidak memberi dampak fungsional dan sudah ditangani oleh `dart format` serta `flutter analyze`.
+   Saya menolak saran untuk mengimpor Dio atau SQLite langsung ke layer domain karena melanggar Dependency Rule Clean Architecture. Saya juga menolak saran perubahan gaya penamaan variabel karena tidak memberi dampak fungsional dan sudah ditangani oleh `dart format` serta `flutter analyze`.
 
 4. **Satu hal konkret yang Anda perbaiki setelah review sejawat - apa dampaknya?**  
-	Saya memperbaiki validasi judul catatan agar menangani nilai kosong, `null`, dan input yang hanya berisi spasi, lalu menambahkan test untuk edge case tersebut. Dampaknya, aplikasi menjadi lebih tahan terhadap input tidak valid dan potensi error pada saat runtime berkurang.
+   Saya memperbaiki validasi judul catatan agar menangani nilai kosong, `null`, dan input yang hanya berisi spasi, lalu menambahkan test untuk edge case tersebut. Dampaknya, aplikasi menjadi lebih tahan terhadap input tidak valid dan potensi error pada saat runtime berkurang.

@@ -1,8 +1,9 @@
 # Laporan Peer Review Pull Request
 
 ## Ringkasan PR
-- **Judul PR:** feat(notes): validasi judul kosong + test
-- **Branch:** `feat/notes-validation` -> `develop`
+- **Judul PR:** feat(notes): validasi judul kosong + test (#1)
+- **Issue:** #4 - Validasi Input Judul Kosong pada Fitur Notes
+- **Branch:** `feature/notes-validation` -> `develop`
 
 ## Catatan Review (Simulasi Peer Review)
 1. **Temuan Kebenaran (Null / Edge Case):**
@@ -21,4 +22,4 @@
    - *Usulan:* Tambahkan test case khusus untuk input spasi.
 
 ## Keputusan Akhir
-- **Status Review:** Approved
+- **Status Review:** Approved & Merged

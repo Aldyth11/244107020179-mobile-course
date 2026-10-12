@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:week_6_authentication_security_fcm/pages/home_page.dart';
-import 'package:week_6_authentication_security_fcm/main.dart';
 import 'package:week_6_authentication_security_fcm/messaging/push_service.dart';
 
 class FakePushService extends PushService {

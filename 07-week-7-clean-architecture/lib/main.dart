@@ -1,14 +1,12 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'features/notes/presentation/pages/notes_page.dart';
 
 void main() {
   runApp(
     // Bungkus MyApp dengan ProviderScope di sini!
-    const ProviderScope(
-      child: MyApp(),
-    ),
+    const ProviderScope(child: MyApp()),
   );
 }
 

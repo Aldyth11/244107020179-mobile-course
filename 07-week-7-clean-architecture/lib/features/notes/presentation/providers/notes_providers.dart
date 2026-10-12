@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../../../core/providers.dart';
 import '../../data/repositories/note_repository_impl.dart';
 import '../../domain/entities/note.dart';
@@ -8,7 +9,7 @@ import '../../domain/usecases/get_notes.dart';
 // 1. Repository Provider (Interface)
 final noteRepositoryProvider = Provider<NoteRepository>((ref) {
   final openDb = ref.watch(openDatabaseProvider);
-  return NoteRepositoryImpl(openDb: openDb);
+  return NoteRepositoryImpl(openDb);
 });
 
 // 2. Use Case Provider
@@ -20,8 +21,8 @@ final getNotesUseCaseProvider = Provider<GetNotes>((ref) {
 // 3. Async Notifier Provider (Standar Riverpod 3.x)
 final notesListNotifierProvider =
     AsyncNotifierProvider<NotesListNotifier, List<Note>>(() {
-  return NotesListNotifier();
-});
+      return NotesListNotifier();
+    });
 
 class NotesListNotifier extends AsyncNotifier<List<Note>> {
   @override
